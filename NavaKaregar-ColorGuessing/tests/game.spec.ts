@@ -86,7 +86,13 @@ test.describe("Color Guessing Game", () => {
     await selectColorsAndSubmit(page);
     await expect(page.getByText("Guesses: 1 / 15")).toBeVisible();
 
-    await selectColorsAndSubmit(page, ["blue", "green", "blue", "yellow"]);
+    await selectColorsAndSubmit(page, [
+      "Blue",
+      "Green",
+      "Blue",
+      "Yellow",
+      "Orange",
+    ]);
 
     await expect(page.getByText("Guesses: 2 / 15")).toBeVisible();
     await expect(page.getByText("13 remaining")).toBeVisible();
