@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Box, InputLabel } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { type SelectChangeEvent } from "@mui/material/Select";
+import clsx from "clsx";
+import { CSSProperties } from "styled-components";
 
 type SelectValue = string | number | readonly string[];
 
@@ -26,14 +28,16 @@ export default function CustomSelect<T extends SelectValue>(
 
   return (
     <Box>
-      <InputLabel
-        id="demo-simple-select-helper-label"
-        className="flex items-center gap-2 cursor-pointer"
-        onClick={() => setOpen(true)}
-      >
-        {label ?? "Select"}
+      <Box className="flex items-center justify-between">
+        <InputLabel
+          id="demo-simple-select-helper-label"
+          className="cursor-pointer"
+          onClick={() => setOpen(true)}
+        >
+          {label ?? "Select"}
+        </InputLabel>
         {labelIcon}
-      </InputLabel>
+      </Box>
       <Select
         labelId="demo-simple-select-helper-label"
         id="demo-simple-select-helper"
@@ -47,7 +51,15 @@ export default function CustomSelect<T extends SelectValue>(
         {options.map(
           (option) =>
             option && (
-              <MenuItem key={String(option)} value={option}>
+              <MenuItem
+                key={String(option)}
+                value={option}
+                className="flex items-center gap-2"
+              >
+                <Box
+                  className="w-4 h-4 rounded-full"
+                  sx={{ backgroundColor: String(option) as CSSProperties }}
+                />
                 {String(option)}
               </MenuItem>
             )

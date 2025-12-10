@@ -48,7 +48,7 @@ export default function GuessForm(props: IGuessFormProps) {
 
   return (
     <Box className="px-4" component="form" onSubmit={onSubmit}>
-      <Box className="grid grid-cols-4 gap-2 mb-4">
+      <Box className="grid grid-cols-5 gap-2 mb-4">
         {fakeArray(MAX_COLORS).map((_, index) => (
           <Box key={index}>
             <Controller
