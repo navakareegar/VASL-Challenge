@@ -3,10 +3,9 @@ import { useState } from "react";
 import { Box, InputLabel } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { type SelectChangeEvent } from "@mui/material/Select";
-import clsx from "clsx";
-import { CSSProperties } from "styled-components";
+import SelectItem from "./SelectItem";
 
-type SelectValue = string | number | readonly string[];
+export type SelectValue = string | number | readonly string[];
 
 interface ICustomSelectProps<T extends SelectValue = string> {
   options: T[];
@@ -47,6 +46,9 @@ export default function CustomSelect<T extends SelectValue>(
         onOpen={() => setOpen(true)}
         onClose={() => setOpen(false)}
         className="inline-block w-full"
+        renderValue={(selected) => {
+          return <SelectItem item={selected as T} />;
+        }}
       >
         {options.map(
           (option) =>
@@ -56,11 +58,7 @@ export default function CustomSelect<T extends SelectValue>(
                 value={option}
                 className="flex items-center gap-2"
               >
-                <Box
-                  className="w-4 h-4 rounded-full"
-                  sx={{ backgroundColor: String(option) as CSSProperties }}
-                />
-                {String(option)}
+                <SelectItem item={option as T} />
               </MenuItem>
             )
         )}
