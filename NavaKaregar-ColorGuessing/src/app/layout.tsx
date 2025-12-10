@@ -1,4 +1,4 @@
-import "@/assets/styles/globals.css";
+import "@/assets/styles/global.css";
 import { Suspense } from "react";
 
 export default function RootLayout({
