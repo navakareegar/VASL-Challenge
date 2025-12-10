@@ -2,13 +2,13 @@ import { Box } from "@mui/material";
 import clsx from "clsx";
 import { MAX_GUESSES } from "@/utils/constant";
 
-interface IGuessStatusbarProps {
+interface IStatusbarProps {
   guessCount: number;
   remainingGuesses: number;
   isGameOver: boolean;
 }
 
-export default function GuessStatusbar(props: IGuessStatusbarProps) {
+export default function Statusbar(props: IStatusbarProps) {
   const { guessCount, remainingGuesses, isGameOver } = props;
   return (
     <Box className="mb-4 p-3 bg-gray-100 rounded-lg mx-4">

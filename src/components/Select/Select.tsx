@@ -1,24 +1,23 @@
 "use client";
 import { useState } from "react";
-import { Box, InputLabel } from "@mui/material";
+import { Box, FormHelperText, InputLabel } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { type SelectChangeEvent } from "@mui/material/Select";
 import SelectItem from "./SelectItem";
 
-export type SelectValue = string | number | readonly string[];
-
-interface ICustomSelectProps<T extends SelectValue = string> {
+interface ICustomSelectProps<T = string> {
   options: T[];
   onChange: (val: T) => void;
   value?: T;
   label?: string;
   labelIcon?: React.ReactNode;
+  error?: boolean;
+  helperText?: string;
 }
 
-export default function CustomSelect<T extends SelectValue>(
-  props: ICustomSelectProps<T>
-) {
-  const { options, onChange, value, label, labelIcon } = props;
+export default function CustomSelect<T>(props: ICustomSelectProps<T>) {
+  const { options, onChange, value, label, labelIcon, error, helperText } =
+    props;
   const [open, setOpen] = useState(false);
 
   const handleChange = (event: SelectChangeEvent<T>) => {
@@ -31,6 +30,7 @@ export default function CustomSelect<T extends SelectValue>(
         <InputLabel
           id="demo-simple-select-helper-label"
           className="cursor-pointer"
+          error={error}
           onClick={() => setOpen(true)}
         >
           {label ?? "Select"}
@@ -46,6 +46,7 @@ export default function CustomSelect<T extends SelectValue>(
         onOpen={() => setOpen(true)}
         onClose={() => setOpen(false)}
         className="inline-block w-full"
+        error={error}
         renderValue={(selected) => {
           return <SelectItem item={selected as T} />;
         }}
@@ -55,7 +56,7 @@ export default function CustomSelect<T extends SelectValue>(
             option && (
               <MenuItem
                 key={String(option)}
-                value={option}
+                value={String(option)}
                 className="flex items-center gap-2"
               >
                 <SelectItem item={option as T} />
@@ -63,6 +64,9 @@ export default function CustomSelect<T extends SelectValue>(
             )
         )}
       </Select>
+      {helperText && (
+        <FormHelperText error={error}>{helperText}</FormHelperText>
+      )}
     </Box>
   );
 }

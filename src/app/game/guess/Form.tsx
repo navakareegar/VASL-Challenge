@@ -5,7 +5,12 @@ import {
 } from "@ant-design/icons";
 import { Box } from "@mui/material";
 import { type FormEventHandler } from "react";
-import { type Control, Controller } from "react-hook-form";
+import {
+  type Control,
+  Controller,
+  type FieldErrors,
+  type UseFormClearErrors,
+} from "react-hook-form";
 
 import CustomButton from "@/components/Button/Button";
 import CustomSelect from "@/components/Select/Select";
@@ -13,7 +18,7 @@ import { type IFormValues, type TColor } from "@/types/common";
 import { fakeArray } from "@/utils/common";
 import { COLORS, MAX_COLORS } from "@/utils/constant";
 
-interface IGuessFormProps {
+interface IFormProps {
   onSubmit: FormEventHandler<HTMLFormElement>;
   control: Control<IFormValues>;
   watchedColors: TColor[];
@@ -21,9 +26,11 @@ interface IGuessFormProps {
   randomColors: TColor[];
   isSubmitted: boolean;
   setIsSubmitted: (submitted: boolean) => void;
+  errors: FieldErrors<IFormValues>;
+  clearErrors: UseFormClearErrors<IFormValues>;
 }
 
-export default function GuessForm(props: IGuessFormProps) {
+export default function Form(props: IFormProps) {
   const {
     onSubmit,
     control,
@@ -32,6 +39,8 @@ export default function GuessForm(props: IGuessFormProps) {
     randomColors,
     isSubmitted,
     setIsSubmitted,
+    errors,
+    clearErrors,
   } = props;
 
   const getStatus = (value: TColor | "", index: number) => {
@@ -54,6 +63,9 @@ export default function GuessForm(props: IGuessFormProps) {
             <Controller
               name={`colors.${index}`}
               control={control}
+              rules={{
+                required: "Please select a color",
+              }}
               render={({ field }) => (
                 <CustomSelect
                   options={[...COLORS]}
@@ -61,9 +73,14 @@ export default function GuessForm(props: IGuessFormProps) {
                   onChange={(value) => {
                     field.onChange(value as TColor);
                     setIsSubmitted(false);
+                    if (value) {
+                      clearErrors(`colors.${index}`);
+                    }
                   }}
                   label={`Color ${index + 1}`}
                   labelIcon={getStatus(watchedColors[index], index)}
+                  error={!!errors.colors?.[index]}
+                  helperText={errors.colors?.[index]?.message}
                 />
               )}
             />
