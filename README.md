@@ -1,158 +1,93 @@
-# 🎮 ReactJS Code Challenges – Game Edition
+# Color Guessing Game
 
-Welcome!  
-This repository is used as a **code challenge** for front-end / React developers who want to join our team.
+A fun and interactive color guessing game built with Next.js, React, and TypeScript.
 
-You will choose **one** of the games below, implement it using **React** (and optionally TypeScript, CSS/Tailwind, etc.), and submit your solution as a **Pull Request**.
+## Challenge Info
 
----
+- **Challenge Name**: 3. Color Guessing Game
+- **Author**: Nava Karegar
+- **Tech Stack**: Next.js 16, React 19, TypeScript, Material UI, Tailwind CSS
 
-## 📌 Available Challenges
+## Game Rules
 
-Detailed descriptions are in [`CHALLENGES.md`](./CHALLENGES.md), but here’s the list:
+1. The game randomly selects 5 colors from the available options: Red, Green, Blue, Yellow, Orange
+2. You have **15 attempts** to guess the correct color sequence
+3. After each guess, you receive feedback:
+   - ✅ **Green checkmark**: Correct color in the correct position
+   - 🟡 **Yellow circle**: Correct color but in the wrong position
+   - ❌ **Red X**: Color is not in the sequence
+4. Win by guessing all 5 colors in the correct order!
 
-1. Tic-Tac Strategy
-2. Memory Card Flip Game
-3. Color Guessing Game
-4. Sliding Puzzle (15 Puzzle)
-5. Knight’s Hunt on the Chessboard
-6. Minesweeper (Mine-Sweeper Game)
-7. Conway’s Game of Life
+## Features
 
-Pick **one** that fits your skills and interests best.  
-Implementing more than one is optional but not required.
+- 🎮 Interactive color selection with dropdown menus
+- 📜 Guess history tracking with visual feedback
+- 🎯 Real-time validation on form inputs
+- 🏆 Win/lose detection with celebration messages
+- 🔄 Play again functionality
+- 📱 Responsive design
 
----
+## How to Run
 
-## 🧱 Tech Requirements
+### Prerequisites
 
-- Must use **React** (plain React, Vite, CRA, Next.js, etc. are all acceptable).
-- You **may** use:
-  - TypeScript
-  - CSS / SCSS / CSS Modules / Tailwind
-  - Any UI library (MUI, shadcn, etc.)
-- Keep it **simple, readable, and maintainable**. We care more about:
-  - Clean code and structure
-  - Good state management and logic
-  - Reusable components
-  - Reasonable folder structure
-  - Clear UX and reasonable styling
+- Node.js 18+ installed
+- npm or yarn or pnpm package manager
 
-No need for pixel-perfect designs or heavy architecture. Clarity > complexity.
+### Installation
 
----
+```bash
+# Install dependencies
+npm install
 
-## 📂 Project Structure & Naming
+# Run development server
+npm run dev
+```
 
-1. **Fork** this repository to your own GitHub account.
-2. In the root of your fork, create a folder named:
+Then open [http://localhost:3000](http://localhost:3000) in your browser.
 
-   ```txt
-   yourName-challengeName
-   ```
+### Available Scripts
 
-   Examples:
+| Command                | Description               |
+| ---------------------- | ------------------------- |
+| `npm run dev`          | Start development server  |
+| `npm run build`        | Build for production      |
+| `npm run start`        | Start production server   |
+| `npm run lint`         | Run ESLint                |
+| `npm run lint:fix`     | Fix ESLint errors         |
+| `npm run format`       | Format code with Prettier |
+| `npm run format:check` | Check code formatting     |
+| `npm run test`         | Run Jest unit tests       |
+| `npm run test:watch`   | Run tests in watch mode   |
 
-   ```txt
-   alexSmith-tic-tac-strategy
-   johnDoe-game-of-life
-   ```
+### Running E2E Tests
 
-3. Inside that folder, create your project:
+```bash
+# Install Playwright browsers (first time only)
+npx playwright install
 
-   ```txt
-   yourName-challengeName/
-   ├─ README.md          // how to run, tech stack, notes
-   ├─ package.json
-   ├─ src/
-   └─ ...
-   ```
+# Run Playwright tests
+npx playwright test
 
-You can use any React setup you prefer, as long as we can run it locally.
+# Run tests with UI
+npx playwright test --ui
+```
 
----
+## Tech Stack
 
-## ▶️ Candidate README Requirements
+- **Framework**: Next.js 16 (App Router)
+- **UI Library**: React 19
+- **Language**: TypeScript 5
+- **Styling**: Tailwind CSS 4, Material UI 7
+- **Form Handling**: React Hook Form
+- **Icons**: Ant Design Icons
+- **Testing**: Jest (unit), Playwright (E2E)
+- **Code Quality**: ESLint 9, Prettier
 
-Inside **your** project folder (`yourName-challengeName/README.md`), please describe:
+## Known Limitations / Future Improvements
 
-- Which challenge you implemented
-- Your chosen tech stack (React + anything else)
-- How to install and run the project, for example:
-
-  ```bash
-  npm install
-  npm run dev
-  ```
-
-- Any assumptions, limitations, or known issues
-- Optional: What you would improve with more time
-
-We should be able to clone your fork, install, and run the game with minimal effort.
-
----
-
-## 🚀 Submission Process
-
-1. **Fork** this repository.
-2. Create your folder as described above.
-3. Implement your chosen game.
-4. Make sure everything runs locally without errors or failing builds.
-5. Commit your changes with meaningful commit messages.
-6. Push your changes to your fork.
-7. Open a **Pull Request** to this repository’s `main` branch.
-8. Submit your CV to our job-position
-
-Please read [`SUBMISSION_GUIDE.md`](./SUBMISSION_GUIDE.md) for detailed PR instructions, naming, and expectations.
-
----
-
-## ✅ What We Evaluate
-
-We’ll look at:
-
-- Code structure & readability
-- Component design and reusability
-- State management (hooks, context, etc.)
-- Handling of edge cases
-- UX / UI clarity and feedback
-- How you handle game rules and constraints
-- Commit history (nice to have, not mandatory)
-
-We are **not** expecting a production-ready app, but we want to see how you think, design, and write front-end code.
-
----
-
-## ⏱ Time Expectations
-
-We don’t expect you to spend a huge amount of time on this.
-
-- Focus on:
-  - Completing the **core game logic**
-  - Having a **working UI**
-  - Writing **clean, understandable** code
-
-Polish is welcome but secondary to clarity and correctness.
-
----
-
-## 🧠 Ambiguities & Assumptions
-
-If anything in the challenge description feels unclear or missing:
-
-- Make a reasonable assumption.
-- Document it in your project `README.md` or your Pull Request description.
-
-Creativity, initiative, and good communication are highly appreciated.
-
----
-
-## 🛠 Notes
-
-- You may use any additional libraries, but **simpler is usually better**.
-- Do not use AI-generated code without understanding and owning it.
-- Make sure your code reflects your own skills and style.
-
----
-
-Happy coding! We’re excited to see what you build. 🚀
+- [ ] Add difficulty levels (easy: 3 colors, hard: 7 colors)
+- [ ] Implement a timer for speed challenges
+- [ ] Store high scores in local storage
+- [ ] Add keyboard navigation support
+- [ ] Add multiplayer mode

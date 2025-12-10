@@ -42,8 +42,6 @@ export default function GamePage() {
     generateRandomColors()
   );
   const [guessHistory, setGuessHistory] = useState<IGuessHistory[]>([]);
-
-  console.log("randomColors", randomColors);
   const isGameOver = useMemo(() => guessCount >= MAX_GUESSES, [guessCount]);
   const remainingGuesses = useMemo(
     () => MAX_GUESSES - guessCount,
@@ -69,7 +67,6 @@ export default function GamePage() {
   };
 
   const onSubmit = (data: IFormValues) => {
-    console.log("data.colors", data.colors);
     if (isGameOver || isWinner) {
       return;
     }
