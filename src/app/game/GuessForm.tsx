@@ -11,7 +11,7 @@ import CustomButton from "@/components/Button/Button";
 import CustomSelect from "@/components/Select/Select";
 import { type IFormValues, type TColor } from "@/types/common";
 import { fakeArray } from "@/utils/common";
-import { COLORS } from "@/utils/constant";
+import { COLORS, MAX_COLORS } from "@/utils/constant";
 
 interface IGuessFormProps {
   onSubmit: FormEventHandler<HTMLFormElement>;
@@ -49,7 +49,7 @@ export default function GuessForm(props: IGuessFormProps) {
   return (
     <Box className="px-4" component="form" onSubmit={onSubmit}>
       <Box className="grid grid-cols-4 gap-2 mb-4">
-        {fakeArray(4).map((_, index) => (
+        {fakeArray(MAX_COLORS).map((_, index) => (
           <Box key={index}>
             <Controller
               name={`colors.${index}`}

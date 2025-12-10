@@ -58,9 +58,9 @@ describe("fakeArray", () => {
 });
 
 describe("generateRandomColors", () => {
-  it("should return an array of 4 colors", () => {
+  it("should return an array of 5 colors", () => {
     const result = generateRandomColors();
-    expect(result).toHaveLength(4);
+    expect(result).toHaveLength(5);
   });
 
   it("should only contain valid colors from COLORS constant", () => {
@@ -79,4 +79,3 @@ describe("generateRandomColors", () => {
     });
   });
 });
-
