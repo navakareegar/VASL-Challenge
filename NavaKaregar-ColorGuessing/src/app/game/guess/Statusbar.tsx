@@ -9,7 +9,7 @@ interface IStatusbarProps {
   isGameOver: boolean;
 }
 
-const Statusbar = memo(function Statusbar(props: IStatusbarProps) {
+const Statusbar = (props: IStatusbarProps) => {
   const { guessCount, remainingGuesses, isGameOver } = props;
 
   const remainingClassName = useMemo(
@@ -36,6 +36,6 @@ const Statusbar = memo(function Statusbar(props: IStatusbarProps) {
       </Box>
     </Box>
   );
-});
+};
 
-export default Statusbar;
+export default memo(Statusbar);

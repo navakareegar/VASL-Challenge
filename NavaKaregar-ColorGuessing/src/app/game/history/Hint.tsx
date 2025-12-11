@@ -11,7 +11,7 @@ const correctIconStyle = { color: "#22c55e" } as const;
 const wrongPositionIconStyle = { color: "#eab308" } as const;
 const wrongIconStyle = { color: "#ef4444" } as const;
 
-const Hint = memo(function Hint() {
+const Hint = () => {
   return (
     <Box className="flex gap-4 mt-3 pt-3 border-t border-gray-200">
       <Box className="flex items-center gap-1 text-xs text-gray-500">
@@ -28,6 +28,6 @@ const Hint = memo(function Hint() {
       </Box>
     </Box>
   );
-});
+};
 
-export default Hint;
+export default memo(Hint);

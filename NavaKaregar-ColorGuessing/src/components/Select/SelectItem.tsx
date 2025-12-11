@@ -7,7 +7,7 @@ interface ISelectItemProps<T = string> {
   item: T;
 }
 
-const SelectItem = memo(function SelectItem<T>(props: ISelectItemProps<T>) {
+const SelectItem = <T,>(props: ISelectItemProps<T>) => {
   const { item } = props;
   return (
     <Box className="flex items-center gap-2">
@@ -15,6 +15,6 @@ const SelectItem = memo(function SelectItem<T>(props: ISelectItemProps<T>) {
       {String(item)}
     </Box>
   );
-}) as <T>(props: ISelectItemProps<T>) => React.ReactElement;
+};
 
-export default SelectItem;
+export default memo(SelectItem);

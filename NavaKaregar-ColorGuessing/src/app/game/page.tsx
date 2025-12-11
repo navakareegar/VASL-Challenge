@@ -19,7 +19,7 @@ import Statusbar from "./guess/Statusbar";
 import ResultMessage from "./guess/ResultMessage";
 import { v4 as uuidv4 } from "uuid";
 
-export default function GamePage() {
+const GamePage = () => {
   const {
     control,
     handleSubmit,
@@ -38,9 +38,8 @@ export default function GamePage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [guessCount, setGuessCount] = useState(0);
   const [isWinner, setIsWinner] = useState(false);
-  const [randomColors, setRandomColors] = useState<TColor[]>(
-    generateRandomColors
-  );
+  const [randomColors, setRandomColors] =
+    useState<TColor[]>(generateRandomColors);
   const [guessHistory, setGuessHistory] = useState<IGuessHistory[]>([]);
   const isGameOver = useMemo(() => guessCount >= MAX_GUESSES, [guessCount]);
   const remainingGuesses = useMemo(
@@ -140,4 +139,6 @@ export default function GamePage() {
       <History history={guessHistory} />
     </Box>
   );
-}
+};
+
+export default GamePage;

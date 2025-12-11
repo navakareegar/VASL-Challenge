@@ -39,7 +39,7 @@ interface IStatusProps {
   guess: IGuessResult;
 }
 
-const Status = memo(function Status(props: IStatusProps) {
+const Status = (props: IStatusProps) => {
   const { guess } = props;
 
   const config = statusConfig[guess.status];
@@ -76,6 +76,6 @@ const Status = memo(function Status(props: IStatusProps) {
       variant="outlined"
     />
   );
-});
+};
 
-export default Status;
+export default memo(Status);

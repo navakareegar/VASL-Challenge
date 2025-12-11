@@ -1,7 +1,6 @@
 import { TrophyOutlined } from "@ant-design/icons";
 import { Box } from "@mui/material";
 import { memo, useMemo } from "react";
-
 import CustomButton from "@/components/Button/Button";
 import { type TColor } from "@/types/common";
 import { MAX_GUESSES } from "@/utils/constant";
@@ -14,14 +13,11 @@ interface IResultMessageProps {
   handlePlayAgain: () => void;
 }
 
-const ResultMessage = memo(function ResultMessage(props: IResultMessageProps) {
+const ResultMessage = (props: IResultMessageProps) => {
   const { isWinner, isGameOver, guessCount, randomColors, handlePlayAgain } =
     props;
 
-  const colorsDisplay = useMemo(
-    () => randomColors.join(", "),
-    [randomColors]
-  );
+  const colorsDisplay = useMemo(() => randomColors.join(", "), [randomColors]);
 
   // Early return if nothing to show
   if (!isWinner && !isGameOver) {
@@ -68,6 +64,6 @@ const ResultMessage = memo(function ResultMessage(props: IResultMessageProps) {
       )}
     </div>
   );
-});
+};
 
-export default ResultMessage;
+export default memo(ResultMessage);

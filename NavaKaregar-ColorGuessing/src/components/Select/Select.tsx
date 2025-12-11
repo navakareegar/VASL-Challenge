@@ -15,9 +15,7 @@ interface ICustomSelectProps<T = string> {
   helperText?: string;
 }
 
-const CustomSelect = memo(function CustomSelect<T>(
-  props: ICustomSelectProps<T>
-) {
+const CustomSelect = <T,>(props: ICustomSelectProps<T>) => {
   const { options, onChange, value, label, labelIcon, error, helperText } =
     props;
   const [open, setOpen] = useState(false);
@@ -80,6 +78,6 @@ const CustomSelect = memo(function CustomSelect<T>(
       )}
     </Box>
   );
-}) as <T>(props: ICustomSelectProps<T>) => React.ReactElement;
+};
 
-export default CustomSelect;
+export default memo(CustomSelect);

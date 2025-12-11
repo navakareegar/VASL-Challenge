@@ -11,7 +11,6 @@ import {
   type FieldErrors,
   type UseFormClearErrors,
 } from "react-hook-form";
-
 import CustomButton from "@/components/Button/Button";
 import CustomSelect from "@/components/Select/Select";
 import { type IFormValues, type TColor } from "@/types/common";
@@ -36,7 +35,7 @@ const colorOptions = [...COLORS] as const;
 // Memoized array for form fields
 const formFieldIndices = fakeArray(MAX_COLORS);
 
-const Form = memo(function Form(props: IFormProps) {
+const Form = (props: IFormProps) => {
   const {
     onSubmit,
     control,
@@ -109,6 +108,6 @@ const Form = memo(function Form(props: IFormProps) {
       </Box>
     </Box>
   );
-});
+};
 
-export default Form;
+export default memo(Form);

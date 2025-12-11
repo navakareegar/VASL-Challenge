@@ -9,7 +9,7 @@ interface IItemProps {
   historyLength: number;
 }
 
-const Item = memo(function Item(props: IItemProps) {
+const Item = (props: IItemProps) => {
   const { entry, index, historyLength } = props;
   const ref = useRef<HTMLDivElement>(null);
   const isLatest = index === historyLength - 1;
@@ -87,6 +87,6 @@ const Item = memo(function Item(props: IItemProps) {
       </Box>
     </Collapse>
   );
-});
+};
 
-export default Item;
+export default memo(Item);

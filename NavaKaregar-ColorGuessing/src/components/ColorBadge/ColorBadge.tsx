@@ -6,15 +6,12 @@ interface IColorBadgeProps {
   color: TColor;
 }
 
-const ColorBadge = memo(function ColorBadge(props: IColorBadgeProps) {
+const ColorBadge = (props: IColorBadgeProps) => {
   const { color } = props;
 
-  const sx = useMemo(
-    () => ({ backgroundColor: String(color) }),
-    [color]
-  );
+  const sx = useMemo(() => ({ backgroundColor: String(color) }), [color]);
 
   return <Box className="w-4 h-4 rounded-full" sx={sx} />;
-});
+};
 
-export default ColorBadge;
+export default memo(ColorBadge);

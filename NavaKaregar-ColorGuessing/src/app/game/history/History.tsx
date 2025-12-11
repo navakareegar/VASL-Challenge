@@ -10,12 +10,9 @@ interface IHistoryProps {
   history: IGuessHistory[];
 }
 
-const History = memo(function History({ history }: IHistoryProps) {
+const History = ({ history }: IHistoryProps) => {
   // Create reversed copy without mutating original array
-  const reversedHistory = useMemo(
-    () => [...history].reverse(),
-    [history]
-  );
+  const reversedHistory = useMemo(() => [...history].reverse(), [history]);
 
   if (history.length === 0) return null;
 
@@ -42,6 +39,6 @@ const History = memo(function History({ history }: IHistoryProps) {
       <Hint />
     </Box>
   );
-});
+};
 
-export default History;
+export default memo(History);

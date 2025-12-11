@@ -21,7 +21,7 @@ interface ICustomButtonProps {
 // Default loading indicator defined outside to prevent recreation
 const defaultLoadingIndicator = <CircularProgress size={16} />;
 
-const CustomButton = memo(function CustomButton(props: ICustomButtonProps) {
+const CustomButton = (props: ICustomButtonProps) => {
   const {
     type = "button",
     disabled = false,
@@ -57,6 +57,6 @@ const CustomButton = memo(function CustomButton(props: ICustomButtonProps) {
       {children}
     </Button>
   );
-});
+};
 
-export default CustomButton;
+export default memo(CustomButton);
