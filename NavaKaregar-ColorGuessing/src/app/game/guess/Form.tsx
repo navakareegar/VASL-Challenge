@@ -4,7 +4,7 @@ import {
   MinusCircleOutlined,
 } from "@ant-design/icons";
 import { Box } from "@mui/material";
-import { type FormEventHandler } from "react";
+import { type FormEventHandler, memo, useCallback, useMemo } from "react";
 import {
   type Control,
   Controller,
@@ -30,7 +30,13 @@ interface IFormProps {
   clearErrors: UseFormClearErrors<IFormValues>;
 }
 
-export default function Form(props: IFormProps) {
+// Memoized color options to prevent recreation on every render
+const colorOptions = [...COLORS] as const;
+
+// Memoized array for form fields
+const formFieldIndices = fakeArray(MAX_COLORS);
+
+const Form = memo(function Form(props: IFormProps) {
   const {
     onSubmit,
     control,
@@ -43,22 +49,31 @@ export default function Form(props: IFormProps) {
     clearErrors,
   } = props;
 
-  const getStatus = (value: TColor | "", index: number) => {
-    if (!isSubmitted || !value) {
-      return null;
-    }
-    if (value === randomColors[index]) {
-      return <CheckCircleOutlined style={{ color: "green" }} />;
-    } else if (randomColors.includes(value)) {
-      return <MinusCircleOutlined style={{ color: "yellow" }} />;
-    }
-    return <CloseOutlined style={{ color: "red" }} />;
-  };
+  const getStatus = useCallback(
+    (value: TColor | "", index: number) => {
+      if (!isSubmitted || !value) {
+        return null;
+      }
+      if (value === randomColors[index]) {
+        return <CheckCircleOutlined style={{ color: "green" }} />;
+      } else if (randomColors.includes(value)) {
+        return <MinusCircleOutlined style={{ color: "yellow" }} />;
+      }
+      return <CloseOutlined style={{ color: "red" }} />;
+    },
+    [isSubmitted, randomColors]
+  );
+
+  // Memoize status icons for each color
+  const statusIcons = useMemo(
+    () => watchedColors.map((color, index) => getStatus(color, index)),
+    [watchedColors, getStatus]
+  );
 
   return (
     <Box className="px-4" component="form" onSubmit={onSubmit}>
       <Box className="grid grid-cols-5 gap-2 mb-4">
-        {fakeArray(MAX_COLORS).map((_, index) => (
+        {formFieldIndices.map((_, index) => (
           <Box key={index}>
             <Controller
               name={`colors.${index}`}
@@ -68,7 +83,7 @@ export default function Form(props: IFormProps) {
               }}
               render={({ field }) => (
                 <CustomSelect
-                  options={[...COLORS]}
+                  options={colorOptions}
                   value={field.value}
                   onChange={(value) => {
                     field.onChange(value as TColor);
@@ -78,7 +93,7 @@ export default function Form(props: IFormProps) {
                     }
                   }}
                   label={`Color ${index + 1}`}
-                  labelIcon={getStatus(watchedColors[index], index)}
+                  labelIcon={statusIcons[index]}
                   error={!!errors.colors?.[index]}
                   helperText={errors.colors?.[index]?.message}
                 />
@@ -94,4 +109,6 @@ export default function Form(props: IFormProps) {
       </Box>
     </Box>
   );
-}
+});
+
+export default Form;

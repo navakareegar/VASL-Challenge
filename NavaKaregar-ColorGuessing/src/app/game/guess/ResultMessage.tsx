@@ -1,5 +1,6 @@
 import { TrophyOutlined } from "@ant-design/icons";
 import { Box } from "@mui/material";
+import { memo, useMemo } from "react";
 
 import CustomButton from "@/components/Button/Button";
 import { type TColor } from "@/types/common";
@@ -13,9 +14,20 @@ interface IResultMessageProps {
   handlePlayAgain: () => void;
 }
 
-export default function ResultMessage(props: IResultMessageProps) {
+const ResultMessage = memo(function ResultMessage(props: IResultMessageProps) {
   const { isWinner, isGameOver, guessCount, randomColors, handlePlayAgain } =
     props;
+
+  const colorsDisplay = useMemo(
+    () => randomColors.join(", "),
+    [randomColors]
+  );
+
+  // Early return if nothing to show
+  if (!isWinner && !isGameOver) {
+    return null;
+  }
+
   return (
     <div className="px-4">
       {isWinner && (
@@ -43,7 +55,7 @@ export default function ResultMessage(props: IResultMessageProps) {
           <h2 className="text-xl font-bold text-red-700">😔 Game Over!</h2>
           <p className="text-red-600 mb-3">
             You&apos;ve used all {MAX_GUESSES} guesses. The correct colors were:{" "}
-            <strong>{randomColors.join(", ")}</strong>
+            <strong>{colorsDisplay}</strong>
           </p>
           <CustomButton
             onClick={handlePlayAgain}
@@ -56,4 +68,6 @@ export default function ResultMessage(props: IResultMessageProps) {
       )}
     </div>
   );
-}
+});
+
+export default ResultMessage;

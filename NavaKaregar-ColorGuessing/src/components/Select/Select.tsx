@@ -1,12 +1,12 @@
 "use client";
-import { useState } from "react";
+import { memo, useCallback, useState } from "react";
 import { Box, FormHelperText, InputLabel } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { type SelectChangeEvent } from "@mui/material/Select";
 import SelectItem from "./SelectItem";
 
 interface ICustomSelectProps<T = string> {
-  options: T[];
+  options: readonly T[] | T[];
   onChange: (val: T) => void;
   value?: T;
   label?: string;
@@ -15,14 +15,27 @@ interface ICustomSelectProps<T = string> {
   helperText?: string;
 }
 
-export default function CustomSelect<T>(props: ICustomSelectProps<T>) {
+const CustomSelect = memo(function CustomSelect<T>(
+  props: ICustomSelectProps<T>
+) {
   const { options, onChange, value, label, labelIcon, error, helperText } =
     props;
   const [open, setOpen] = useState(false);
 
-  const handleChange = (event: SelectChangeEvent<T>) => {
-    onChange(event.target.value as T);
-  };
+  const handleChange = useCallback(
+    (event: SelectChangeEvent<T>) => {
+      onChange(event.target.value as T);
+    },
+    [onChange]
+  );
+
+  const handleOpen = useCallback(() => setOpen(true), []);
+  const handleClose = useCallback(() => setOpen(false), []);
+
+  const renderValue = useCallback(
+    (selected: T) => <SelectItem item={selected} />,
+    []
+  );
 
   return (
     <Box>
@@ -31,7 +44,7 @@ export default function CustomSelect<T>(props: ICustomSelectProps<T>) {
           id="demo-simple-select-helper-label"
           className="cursor-pointer"
           error={error}
-          onClick={() => setOpen(true)}
+          onClick={handleOpen}
         >
           {label ?? "Select"}
         </InputLabel>
@@ -43,13 +56,11 @@ export default function CustomSelect<T>(props: ICustomSelectProps<T>) {
         value={value ?? ("" as T)}
         onChange={handleChange}
         open={open}
-        onOpen={() => setOpen(true)}
-        onClose={() => setOpen(false)}
+        onOpen={handleOpen}
+        onClose={handleClose}
         className="inline-block w-full"
         error={error}
-        renderValue={(selected) => {
-          return <SelectItem item={selected as T} />;
-        }}
+        renderValue={renderValue}
       >
         {options.map(
           (option) =>
@@ -59,7 +70,7 @@ export default function CustomSelect<T>(props: ICustomSelectProps<T>) {
                 value={String(option)}
                 className="flex items-center gap-2"
               >
-                <SelectItem item={option as T} />
+                <SelectItem item={option} />
               </MenuItem>
             )
         )}
@@ -69,4 +80,6 @@ export default function CustomSelect<T>(props: ICustomSelectProps<T>) {
       )}
     </Box>
   );
-}
+}) as <T>(props: ICustomSelectProps<T>) => React.ReactElement;
+
+export default CustomSelect;

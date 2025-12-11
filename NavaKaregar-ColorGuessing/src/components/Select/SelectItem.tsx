@@ -1,11 +1,13 @@
 import { Box } from "@mui/material";
+import { memo } from "react";
 import ColorBadge from "../ColorBadge/ColorBadge";
 import { TColor } from "@/types/common";
 
 interface ISelectItemProps<T = string> {
   item: T;
 }
-export default function SelectItem<T>(props: ISelectItemProps<T>) {
+
+const SelectItem = memo(function SelectItem<T>(props: ISelectItemProps<T>) {
   const { item } = props;
   return (
     <Box className="flex items-center gap-2">
@@ -13,4 +15,6 @@ export default function SelectItem<T>(props: ISelectItemProps<T>) {
       {String(item)}
     </Box>
   );
-}
+}) as <T>(props: ISelectItemProps<T>) => React.ReactElement;
+
+export default SelectItem;

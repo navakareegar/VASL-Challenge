@@ -1,4 +1,5 @@
 import { Button, CircularProgress } from "@mui/material";
+import { memo } from "react";
 
 interface ICustomButtonProps {
   type?: "button" | "submit" | "reset";
@@ -16,7 +17,11 @@ interface ICustomButtonProps {
   loadingPosition?: "start" | "end";
   loadingIndicator?: React.ReactNode;
 }
-export default function CustomButton(props: ICustomButtonProps) {
+
+// Default loading indicator defined outside to prevent recreation
+const defaultLoadingIndicator = <CircularProgress size={16} />;
+
+const CustomButton = memo(function CustomButton(props: ICustomButtonProps) {
   const {
     type = "button",
     disabled = false,
@@ -31,7 +36,7 @@ export default function CustomButton(props: ICustomButtonProps) {
     fullWidth = false,
     loading = false,
     loadingPosition = "start",
-    loadingIndicator = <CircularProgress size={16} />,
+    loadingIndicator = defaultLoadingIndicator,
   } = props;
   return (
     <Button
@@ -52,4 +57,6 @@ export default function CustomButton(props: ICustomButtonProps) {
       {children}
     </Button>
   );
-}
+});
+
+export default CustomButton;
